@@ -46,7 +46,7 @@ function getTopHeadlines() {
 // expose internal api method to retrieve top headlines
 app.get('/api/news', (req, res) => {
   getTopHeadlines()
-    .then((news) => { res.json(news); })
+    .then((data) => { res.json({ news: data.articles }); })
     .error((err) => { res.status(500).send(err); });
 });
 
