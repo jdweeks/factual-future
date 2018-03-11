@@ -5,13 +5,14 @@ const port = process.env.PORT || 5000;
 
 const YAML = require('yamljs');
 const rp = require('request-promise');
+const fs = require('fs');
 
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
 // load selected sources from filesystem
-const sources = YAML.load('sources.yaml');
+const sources = YAML.load('./data/sources.yaml');
 
 // expose internal api method to retrieve sources
 app.get('/api/sources', (req, res) => {
@@ -38,16 +39,47 @@ const apiOpts = {
   json: true
 } 
 
-// create function to retrieve top headlines from newsapi
+// function to retrieve top headlines from newsapi
 function getTopHeadlines() {
   return rp(apiOpts);
 }
 
-// expose internal api method to retrieve top headlines
-app.get('/api/news', (req, res) => {
+// function to cache headline data
+function cacheTopHeadlines(next) {
   getTopHeadlines()
-    .then((data) => { res.json({ news: data.articles }); })
-    .error((err) => { res.status(500).send(err); });
+    .then((data) => { 
+      fs.writeFile('./data/news.json', JSON.stringify(data), (err) => {
+        if (err) console.error(err);;
+        next();
+      });
+    })
+    .error((err) => { 
+      console.error(err);
+    });
+}
+cacheTopHeadlines(loadTopHeadlines);
+
+
+// function to load headline data from filesystem
+let news = {};
+function loadTopHeadlines() {
+  fs.readFile('./data/news.json', (err, data) => {
+    if (err) console.error(err);
+    news = JSON.parse(data);
+  });
+}
+
+// synchronize filesystem cache with in-memory news data
+// fs.watch('./data/news.json', (eventType) => {
+//   if (eventType === 'change')
+//     loadTopHeadlines();
+//   else if (eventType === 'error')
+//     console.error('Error in news data');
+// });
+
+// expose internal api method to retrieve top headlines
+app.get('/api/articles', (req, res) => {
+  res.json({ articles: news.articles });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -7,8 +7,9 @@ class Article extends Component {
     return (
       <div>
         <Card body className="text-center">
-          <CardTitle>{this.props.from}</CardTitle>
-          <CardText>{this.props.title}</CardText>
+          <CardTitle>{this.props.title}</CardTitle>
+          <CardText>{this.props.date}</CardText>
+          <CardText>{this.props.from}</CardText>
           <CardLink href={this.props.link}>{this.props.link}</CardLink>
         </Card>
       </div>
@@ -18,17 +19,17 @@ class Article extends Component {
 
 class App extends Component {
   state = {
-    news: []
+    articles: []
   };
 
   componentDidMount() {
     this.callApi()
-      .then(res => this.setState({ news: res.news }))
+      .then(res => this.setState({ articles: res.articles }))
       .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch('/api/news');
+    const response = await fetch('/api/articles');
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);
@@ -37,9 +38,9 @@ class App extends Component {
   };
 
   render() {
-    const {news} = this.state;
-    const articles = news.map(function(article) {
-      return <Article title={article.title} from={article.source.name} link={article.url} />
+    const {articles} = this.state;
+    const articlesList = articles.map(function(article) {
+      return <Article title={article.title} date={new Date(article.publishedAt).toLocaleString()} from={article.source.name} link={article.url} />
     });
 
     return (
@@ -47,7 +48,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Factual Future</h1>
         </header>
-        { articles }
+        { articlesList }
       </div>
     );
   }
