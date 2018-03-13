@@ -57,8 +57,12 @@ function cacheTopHeadlines(next) {
       console.error(err);
     });
 }
+
+// initial load
 cacheTopHeadlines(loadTopHeadlines);
 
+// reload every 30 mins
+setInterval(() => { cacheTopHeadlines(loadTopHeadlines); }, 30*60*1000);
 
 // function to load headline data from filesystem
 let news = {};
