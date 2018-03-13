@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardLink, CardTitle, CardText } from 'reactstrap';
+import Menu from './Menu';
 import './App.css';
 
 class Article extends Component {
@@ -45,9 +46,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Factual Future</h1>
-        </header>
+        <Menu />
         { articlesList }
       </div>
     );
