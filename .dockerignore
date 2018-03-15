@@ -1,2 +1,8 @@
+# cached article data
+server/data/news.json
+
+# local env config
+client/.env.*.local
+
 **/node_modules
 **/*.log*
