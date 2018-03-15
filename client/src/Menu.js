@@ -1,5 +1,6 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import './Menu.css';
 
 export default class Menu extends React.Component {
   constructor(props) {
@@ -19,13 +20,13 @@ export default class Menu extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="dark" dark>
+        <Navbar className="customNav" color="dark" dark>
           <NavbarBrand href="/" className="mr-auto">factual future</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink href="https://newsapi.org">built with News API</NavLink>
+                <NavLink href="https://newsapi.org" target="_blank">built with News API</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
