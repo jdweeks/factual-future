@@ -3,6 +3,9 @@
 # cached article data
 server/data/news.json
 
+# local env config
+client/.env.*.local
+
 # dependencies
 **/node_modules
 
