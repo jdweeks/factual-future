@@ -6,13 +6,15 @@ import './App.css';
 class Article extends Component {
   render() {
     return (
-      <div>
-        <Card body className="text-center">
-          <CardTitle>{this.props.title}</CardTitle>
-          <CardText>{this.props.date}</CardText>
-          <CardText>{this.props.from}</CardText>
-          <CardLink href={this.props.link}>{this.props.link}</CardLink>
-        </Card>
+      <div className="row justify-content-center">
+        <div className="col">
+          <Card body className="articleCard">
+            <CardTitle>{this.props.title}</CardTitle>
+            <CardText>{this.props.date}</CardText>
+            <CardText>{this.props.from}</CardText>
+            <CardLink href={this.props.link} target="_blank">{this.props.link}</CardLink>
+          </Card>
+        </div>
       </div>
     );
   }
@@ -47,7 +49,9 @@ class App extends Component {
     return (
       <div className="App">
         <Menu />
-        { articlesList }
+        <div class="container">
+          { articlesList }
+        </div>
       </div>
     );
   }
