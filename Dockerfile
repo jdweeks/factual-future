@@ -9,10 +9,7 @@ RUN cd server && npm install
 
 RUN npm install -g nodemon
 
-EXPOSE 3000 5000
-
-RUN chown -R 1001:1001 /usr/src/app
-USER 1001
+EXPOSE 80 5000
 
 WORKDIR /usr/src/app/server
 CMD ["yarn", "dev"]
