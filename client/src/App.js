@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardLink, CardTitle, CardText } from 'reactstrap';
 import Menu from './Menu';
+import Footer from './Footer';
 import './App.css';
 
 class Article extends Component {
@@ -49,9 +50,12 @@ class App extends Component {
     return (
       <div className="App">
         <Menu />
-        <div class="container">
+
+        <div className="container">
           { articlesList }
         </div>
+        
+        <Footer />
       </div>
     );
   }
