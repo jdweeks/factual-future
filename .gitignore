@@ -4,7 +4,7 @@
 server/data/news.json
 
 # local env config
-**/.env.*
+client/.env.development*
 
 # dependencies
 **/node_modules
