@@ -27,7 +27,7 @@ sources.forEach(function(source) {
 sourceStr = sourceStr.substring(0, sourceStr.length-1);
 
 // set newsapi key
-const apiKey = '136212b813b1423e88777c8e10c4a80b';
+const apiKey = process.env.NEWSAPI_KEY;
 
 // set newsapi call options
 const apiOpts = {
