@@ -7,10 +7,6 @@ const YAML = require('yamljs');
 const rp = require('request-promise');
 const fs = require('fs');
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
-
 // load selected sources from filesystem
 const sources = YAML.load('./data/sources.yaml');
 
